@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  self.per_form_csrf_tokens = true
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
   before_action :set_article, except: [:create, :index]
 
@@ -7,8 +8,12 @@ class ArticlesController < ApplicationController
     @sorted_articles = @articles.order(:sub_topic)
   end
 
+ 
+
   def create
+    @topic = Topic.find(params[:topic_id])
     @article = @topic.articles.create(article_params)
+    redirect_to @topic
   end
 
   def update
@@ -17,11 +22,10 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    if @article.destroy
-      flash[:success] "article deleted!"
-
-    else
-      flash[:error] "article not deleted!"
+    @article.destroy
+    respond_to do |format|
+      format.html { redirect_to @topic, notice: 'Article was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
@@ -37,6 +41,6 @@ class ArticlesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def article_params
-    params.require(:article).permit(:sub_topic, :description)
+    params.require(:article).permit(:sub_topic, :description, :link)
   end
 end

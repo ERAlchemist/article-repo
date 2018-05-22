@@ -1,14 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<p>
+<h2>
   
   <%= @topic.name %>
-</p>
+</h2>
 <% id = @topic.id %>
 <% @topic.articles.order(:sub_topic).each do |article|%>
 <div id="<%article.sub_topic%>">
   <a href="<%=article.link%>"><%=article.description%></a><br>
 </div>
-<%end%>
-<%= link_to 'Edit', edit_topic_path(@topic) %> |
+<%end%><hr>
+<%= render 'articles/form' %>
+<%= link_to 'Edit Topic', edit_topic_path(@topic) %> |
 <%= link_to 'Back', topics_path %>

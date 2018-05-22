@@ -1,0 +1,20 @@
+
+
+<%= form_for([@topic, @topic.articles.build]) do |article_form| %>
+
+
+        <%= article_form.label :description %>
+        <%= article_form.text_field :description %>
+
+        <%= article_form.label :link %>
+        <%= article_form.text_field :link %>
+
+        <%= article_form.label :sub_topic %>
+        <%= article_form.text_field :sub_topic %>
+
+        <div class="actions">
+            <%= article_form.submit %>
+        </div>
+  
+   
+<%end%>

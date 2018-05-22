@@ -1,4 +1,5 @@
 class TopicsController < ApplicationController
+  self.per_form_csrf_tokens = true
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
   # GET /topics
